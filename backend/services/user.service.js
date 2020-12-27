@@ -32,8 +32,8 @@ class UserService {
 
       const hashedPassword = await bcrypt.hash(password, 12);
       const user = new User({ name, email, password: hashedPassword });
-
-      return await user.save();
+      await user.save();
+      return {message: "created"}
     } catch (e) {
       return SystemErrorService.error('An Internal error', errorTypes.Internal);
     }
@@ -69,7 +69,7 @@ class UserService {
         );
       }
 
-      const token = jwt.sign({ userId: user.id }, process.env.jwtKey, {
+      const token = jwt.sign({ userId: user.id, app: 'photofinder' }, process.env.jwtKey, {
         expiresIn: '24h',
       });
 
