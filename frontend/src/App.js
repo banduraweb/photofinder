@@ -8,6 +8,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { SignInContainer } from './pages/SignInContainer/SignInContainer';
 import { MainPageContainer } from './pages/MainPageContainer/MainPageContainer';
 import { SignUpContainer } from './pages/SignUpContainer/SignUpContainer';
+import { ProfileContainer } from './pages/ProfileContainer/ProfileContainer';
+import { KeywordsContainer } from './pages/KeywordsContainer/KeywordsContainer';
 
 function App() {
   return (
@@ -28,6 +30,21 @@ function App() {
           exact
           path={routing().root}
           component={MainPageContainer}
+        />
+        <PrivateRoute
+          exact
+          path={routing().liked}
+          component={MainPageContainer}
+        />
+        <PrivateRoute
+          exact
+          path={routing().profile}
+          component={ProfileContainer}
+        />
+        <PrivateRoute
+          exact
+          path={routing().keywords}
+          component={KeywordsContainer}
         />
 
         {/* NOT FOUND */}

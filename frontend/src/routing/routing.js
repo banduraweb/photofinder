@@ -5,5 +5,8 @@ export default function routing() {
     login: '/login',
     app: '/app',
     notFound: '/404',
+    liked: '/mylikes',
+    profile: '/profile',
+    keywords: '/mykeywords',
   };
 }

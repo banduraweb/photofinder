@@ -1,9 +1,32 @@
 import React from 'react';
+import { GridListBar } from '../../components/GridList/GridList';
 
-export const MainPage = ({ logout }) => {
+export const MainPage = ({
+  onScroll,
+  pageNumber,
+  photoList,
+  loading,
+  successLoaded,
+  handleOpenCurrentImg,
+  handleCloseCurrentImg,
+  open,
+  downloadImage,
+  toggleLike,
+  isMyLikesPage,
+}) => {
   return (
-    <div>
-      <button onClick={() => logout()}>logout</button>
-    </div>
+    <GridListBar
+      isMyLikesPage={isMyLikesPage}
+      toggleLike={toggleLike}
+      downloadImage={downloadImage}
+      handleOpenCurrentImg={handleOpenCurrentImg}
+      handleCloseCurrentImg={handleCloseCurrentImg}
+      open={open}
+      onScroll={onScroll}
+      pageNumber={pageNumber}
+      photoList={photoList}
+      loading={loading}
+      successLoaded={successLoaded}
+    />
   );
 };

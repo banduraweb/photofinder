@@ -7,14 +7,15 @@ import routing from '../../routing/routing';
 const PublicRoute = ({ component: Component, ...rest }) => {
   if (localStorage.getItem('token')) {
     const token = localStorage.getItem('token');
-    const { app } = JWTDecode(token);
-
-    if (app) {
-      return (
-        <Route {...rest}>
-          <Redirect to={routing().root} />
-        </Route>
-      );
+    if (token) {
+      const { app } = JWTDecode(token);
+      if (app) {
+        return (
+          <Route {...rest}>
+            <Redirect to={routing().root} />
+          </Route>
+        );
+      }
     }
   }
 
