@@ -1,4 +1,4 @@
-const errorTypes = require('../constants/errors');
+const errorTypes = require("../constants/errors");
 
 module.exports = {
   defaultResponse: (res, successStatus, payload) => {

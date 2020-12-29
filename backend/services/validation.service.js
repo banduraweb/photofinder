@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 class Validation {
   static registrationValidation(body) {
@@ -14,6 +14,22 @@ class Validation {
     const schema = Joi.object({
       email: Joi.string().min(3).required().email(),
       password: Joi.string().min(3).required(),
+    });
+    return schema.validate(body);
+  }
+  static photoValidation(body) {
+    const schema = Joi.object({
+      userId: Joi.string().required(),
+      photoId: Joi.string().required(),
+      url: Joi.string().required(),
+    });
+    return schema.validate(body);
+  }
+
+  static keyWordValidation(body) {
+    const schema = Joi.object({
+      userId: Joi.string().required(),
+      keyword: Joi.string().required(),
     });
     return schema.validate(body);
   }

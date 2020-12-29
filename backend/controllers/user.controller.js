@@ -1,5 +1,5 @@
-const UserService = require('../services/user.service');
-const Response = require('../helpers/defaultResponse');
+const UserService = require("../services/user.service");
+const Response = require("../helpers/defaultResponse");
 
 class UserController {
   static async registration(req, res) {

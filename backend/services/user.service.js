@@ -1,11 +1,11 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const errorTypes = require('../constants/errors');
-const User = require('../models/User');
-const SystemErrorService = require('./errors.service');
-const Validation = require('./validation.service');
-
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const errorTypes = require("../constants/errors");
+const User = require("../models/User");
+const SystemErrorService = require("./errors.service");
+const Validation = require("./validation.service");
+require("dotenv").config();
 class UserService {
   static async registration(name, email, password) {
     const { error } = Validation.registrationValidation({
@@ -16,8 +16,8 @@ class UserService {
 
     if (error) {
       return SystemErrorService.error(
-        'Validations errors',
-        errorTypes.Validation,
+        "Validations errors",
+        errorTypes.Validation
       );
     }
 
@@ -25,17 +25,17 @@ class UserService {
       const isExists = await User.findOne({ email });
       if (isExists) {
         return SystemErrorService.error(
-          'An user with this email already existed',
-          errorTypes.Validation,
+          "An user with this email already existed",
+          errorTypes.Validation
         );
       }
 
       const hashedPassword = await bcrypt.hash(password, 12);
       const user = new User({ name, email, password: hashedPassword });
       await user.save();
-      return {message: "created"}
+      return { message: "created" };
     } catch (e) {
-      return SystemErrorService.error('An Internal error', errorTypes.Internal);
+      return SystemErrorService.error("An Internal error", errorTypes.Internal);
     }
   }
 
@@ -44,8 +44,8 @@ class UserService {
 
     if (error) {
       return SystemErrorService.error(
-        'Validations errors',
-        errorTypes.Validation,
+        "Validations errors",
+        errorTypes.Validation
       );
     }
 
@@ -53,8 +53,8 @@ class UserService {
       const isExists = await User.findOne({ email });
       if (!isExists) {
         return SystemErrorService.error(
-          'User was not found',
-          errorTypes.NotFound,
+          "User was not found",
+          errorTypes.NotFound
         );
       }
 
@@ -64,18 +64,28 @@ class UserService {
 
       if (!isMatchedPassword) {
         return SystemErrorService.error(
-          'Not correct password',
-          errorTypes.Validation,
+          "Not correct password",
+          errorTypes.Validation
         );
       }
 
-      const token = jwt.sign({ userId: user.id, app: 'photofinder' }, process.env.jwtKey, {
-        expiresIn: '24h',
-      });
+      const token = jwt.sign(
+        {
+          userId: user.id,
+          app: "photofinder",
+          name: user.name,
+          email,
+          createdAt: user.createdAt,
+        },
+        process.env.jwtKey,
+        {
+          expiresIn: "24h",
+        }
+      );
 
       return { token, userId: user._id };
     } catch (e) {
-      return SystemErrorService.error('An Internal error', errorTypes.Internal);
+      return SystemErrorService.error("An Internal error", errorTypes.Internal);
     }
   }
 }
