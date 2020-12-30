@@ -8,13 +8,11 @@ const get = (payload) =>
   );
 
 const getPhotoById = (id) =>
-  api.get(
-    `/api/?key=19655068-dbf36f63b12fc795bd3b7002e&id=${id}`
-  );
+  api.get(`/api/?key=19655068-dbf36f63b12fc795bd3b7002e&id=${id}`);
 
 const PhotoApi = {
   get,
-  getPhotoById
+  getPhotoById,
 };
 
 export default PhotoApi;

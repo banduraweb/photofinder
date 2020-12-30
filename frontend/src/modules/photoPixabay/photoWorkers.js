@@ -5,7 +5,7 @@ import Notification from '../../services/notification.service';
 import { photoSelectors } from './photoSelectors';
 import { pushPhoto, setCountPage, savePhotos } from './photoActions';
 import { photoActionsSelectors } from '../photoActions/photoActionsSelectors';
-import {pushListLikedPhotos} from "../photoActions/photoHistoryActions";
+import { pushListLikedPhotos } from '../photoActions/photoHistoryActions';
 
 function* photoApiWorker({ payload }) {
   try {

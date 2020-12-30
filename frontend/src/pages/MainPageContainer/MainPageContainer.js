@@ -29,7 +29,7 @@ export const MainPageContainer = () => {
   const isMyLikesPage = location.pathname === routing().liked;
 
   useEffect(() => {
-    if(isMyLikesPage){
+    if (isMyLikesPage) {
       dispatch(pushListLikedPhotos());
     }
   }, [location]);
@@ -68,10 +68,7 @@ export const MainPageContainer = () => {
     dispatch(pushToggleLikePhoto(payload));
   };
 
-
-  const renderPhotoList = isMyLikesPage
-    ? photoListLiked
-    : photoList;
+  const renderPhotoList = isMyLikesPage ? photoListLiked : photoList;
   const loading = status === REQUEST;
   const successLoaded = status === SUCCESS;
 
