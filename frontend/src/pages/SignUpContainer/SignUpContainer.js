@@ -28,18 +28,24 @@ export const SignUpContainer = () => {
     dispatch(clearAllErrors());
   }, []);
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    dispatch(pushSignUp(input));
-  },[dispatch, input]);
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(pushSignUp(input));
+    },
+    [dispatch, input]
+  );
 
   const handleLinkLogin = useCallback(() => {
     history.push(routing().login);
-  },[history]);
+  }, [history]);
 
-  const handleChange = useCallback(({ target }) => {
-    dispatch(saveSignUpField(target));
-  },[dispatch]);
+  const handleChange = useCallback(
+    ({ target }) => {
+      dispatch(saveSignUpField(target));
+    },
+    [dispatch]
+  );
 
   const loading = status === REQUEST;
 

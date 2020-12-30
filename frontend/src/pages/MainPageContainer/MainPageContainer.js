@@ -60,20 +60,22 @@ export const MainPageContainer = () => {
       a.href = canvas.toDataURL('image/png');
       a.click();
     };
-  },[]);
+  }, []);
 
-  const toggleLike = useCallback((payload) => {
-    dispatch(pushToggleLikePhoto(payload));
-  },[dispatch]);
+  const toggleLike = useCallback(
+    (payload) => {
+      dispatch(pushToggleLikePhoto(payload));
+    },
+    [dispatch]
+  );
 
-
-  const renderPhotoList = useMemo(()=>{
+  const renderPhotoList = useMemo(() => {
     if (isMyLikesPage) {
-      return photoListLiked
+      return photoListLiked;
     } else {
-      return photoList
+      return photoList;
     }
-  },[isMyLikesPage, photoListLiked, photoList]);
+  }, [isMyLikesPage, photoListLiked, photoList]);
   const loading = status === REQUEST;
   const successLoaded = status === SUCCESS;
 

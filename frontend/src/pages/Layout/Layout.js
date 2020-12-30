@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -25,7 +25,7 @@ import {
   saveQuerySearch,
 } from '../../modules/photoPixabay/photoActions';
 import { photoSelectors } from '../../modules/photoPixabay/photoSelectors';
-import {queryNormalize} from "../../heplers/stringNormalize";
+import { queryNormalize } from '../../heplers/stringNormalize';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -114,14 +114,12 @@ export const Layout = ({ children }) => {
     if (location.pathname !== routing().root) {
       history.push(routing().root);
     }
-  },[location.pathname]);
-
+  }, [location.pathname]);
 
   const logout = useCallback(() => {
     dispatch(pushLogout());
     history.push(routing().login);
-  },[dispatch, history]);
-
+  }, [dispatch, history]);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -134,12 +132,13 @@ export const Layout = ({ children }) => {
     setOpenDrawer(open);
   };
 
-
-  const handleChange = useCallback(({ target }) => {
-    const { value, name } = target;
-    dispatch(saveQuerySearch({ value: queryNormalize(value), name }));
-  },[dispatch]);
-
+  const handleChange = useCallback(
+    ({ target }) => {
+      const { value, name } = target;
+      dispatch(saveQuerySearch({ value: queryNormalize(value), name }));
+    },
+    [dispatch]
+  );
 
   const loadPhotoList = () => {
     if (query !== '') {

@@ -27,18 +27,24 @@ export const SignInContainer = () => {
     dispatch(clearAllErrors());
   }, []);
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    dispatch(pushSignIn(input));
-  },[dispatch, input]);
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(pushSignIn(input));
+    },
+    [dispatch, input]
+  );
 
-  const handleChange = useCallback(({ target }) => {
-    dispatch(saveSignInField(target));
-  },[dispatch]);
+  const handleChange = useCallback(
+    ({ target }) => {
+      dispatch(saveSignInField(target));
+    },
+    [dispatch]
+  );
 
   const handleLinkRegistration = useCallback(() => {
     history.push(routing().register);
-  },[history]);
+  }, [history]);
 
   const loading = status === REQUEST;
 
