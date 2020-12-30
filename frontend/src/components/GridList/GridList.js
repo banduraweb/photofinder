@@ -53,6 +53,7 @@ export const GridListBar = ({
   downloadImage,
   toggleLike,
   isMyLikesPage,
+  query,
 }) => {
   const classes = useStyles();
   return (
@@ -60,7 +61,7 @@ export const GridListBar = ({
       <InfiniteScroll
         dataLength={photoList.length}
         next={onScroll}
-        hasMore={!isMyLikesPage}
+        hasMore={!isMyLikesPage && !!query}
         loader={
           <div className={classes.root}>
             {loading

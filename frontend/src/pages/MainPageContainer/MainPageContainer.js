@@ -79,6 +79,7 @@ export const MainPageContainer = () => {
   return (
     <Layout>
       <MainPage
+        query={query}
         isMyLikesPage={isMyLikesPage}
         toggleLike={toggleLike}
         downloadImage={downloadImage}
