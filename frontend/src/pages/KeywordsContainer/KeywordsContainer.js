@@ -39,11 +39,12 @@ export const KeywordsContainer = () => {
       default:
         return keyWordsList;
     }
-  }, [selected, keyWordsList]);
+  }, [selected, keyWordsList, status]);
 
   return (
     <Layout>
       <Keywords
+        status={status}
         keyWordsList={sortedKeywords}
         setSelected={setSelected}
         selected={selected}

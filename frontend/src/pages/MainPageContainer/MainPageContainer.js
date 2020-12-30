@@ -78,10 +78,14 @@ export const MainPageContainer = () => {
   }, [isMyLikesPage, photoListLiked, photoList]);
   const loading = status === REQUEST;
   const successLoaded = status === SUCCESS;
+  const myLikesLoading = likedFetchStatus === REQUEST;
+  const successLoadedLikes = likedFetchStatus === SUCCESS;
 
   return (
     <Layout>
       <MainPage
+        myLikesLoading={myLikesLoading}
+        successLoadedLikes={successLoadedLikes}
         query={query}
         isMyLikesPage={isMyLikesPage}
         toggleLike={toggleLike}

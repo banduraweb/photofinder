@@ -14,9 +14,13 @@ export const MainPage = ({
   toggleLike,
   isMyLikesPage,
   query,
+  myLikesLoading,
+  successLoadedLikes,
 }) => {
   return (
     <GridListBar
+      myLikesLoading={myLikesLoading}
+      successLoadedLikes={successLoadedLikes}
       query={query}
       isMyLikesPage={isMyLikesPage}
       toggleLike={toggleLike}

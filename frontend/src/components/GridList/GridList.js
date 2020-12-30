@@ -11,6 +11,8 @@ import SettingsOverscanIcon from '@material-ui/icons/SettingsOverscan';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import csx from 'classnames';
 import { TransitionsModal } from '../Modal/Modal';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -40,6 +42,13 @@ const useStyles = makeStyles((theme) => ({
   right: {
     alignItems: 'baseline',
   },
+  progress: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
 }));
 
 export const GridListBar = ({
@@ -54,10 +63,20 @@ export const GridListBar = ({
   toggleLike,
   isMyLikesPage,
   query,
+  myLikesLoading,
+  successLoadedLikes,
 }) => {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
+      {isMyLikesPage && myLikesLoading ? (
+        <div className={classes.progress}>
+          <LinearProgress color="secondary" />
+        </div>
+      ) : isMyLikesPage && successLoadedLikes && photoList.length === 0 ? (
+        <Typography variant="h6">You have no liked photos yet</Typography>
+      ) : null}
       <InfiniteScroll
         style={isMyLikesPage && { overflow: 'hidden' }}
         dataLength={photoList.length}
@@ -65,11 +84,15 @@ export const GridListBar = ({
         hasMore={!isMyLikesPage && !!query}
         loader={
           <div className={classes.root}>
-            {loading
-              ? 'loading...'
-              : successLoaded && !photoList.length
-              ? 'No photo by query'
-              : 'Lets find!'}
+            {loading ? (
+              <div className={classes.progress}>
+                <LinearProgress color="secondary" />
+              </div>
+            ) : successLoaded && !photoList.length ? (
+              'No photo by query'
+            ) : (
+              'Lets find!'
+            )}
           </div>
         }
       >

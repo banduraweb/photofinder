@@ -11,12 +11,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Loader = () => {
+export const Loader = ({ size = 40 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <CircularProgress color="secondary" />
+      <CircularProgress color="secondary" size={size} />
     </div>
   );
 };
