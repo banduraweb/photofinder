@@ -12,10 +12,12 @@ function* photoApiWorker({ payload }) {
     const { photoList } = yield select(
       photoSelectors.selectFetchedPhotoFromApi
     );
-
     yield put(pushPhoto.request());
     const { hits } = yield call(PhotoApi.get, { keyword: payload, pageNumber });
-    yield call(UserService.postKeyword, { keyword: payload });
+    if (pageNumber === 1) {
+      yield call(UserService.postKeyword, { keyword: payload });
+    }
+
     const { photoListLiked: currentLiked } = yield select(
       photoActionsSelectors.selectLikedPhotos
     );
