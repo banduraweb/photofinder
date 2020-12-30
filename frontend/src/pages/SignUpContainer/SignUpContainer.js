@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { SignUp } from './SignUp';
@@ -28,18 +28,18 @@ export const SignUpContainer = () => {
     dispatch(clearAllErrors());
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     dispatch(pushSignUp(input));
-  };
+  },[dispatch, input]);
 
-  const handleLinkLogin = () => {
+  const handleLinkLogin = useCallback(() => {
     history.push(routing().login);
-  };
+  },[history]);
 
-  const handleChange = ({ target }) => {
+  const handleChange = useCallback(({ target }) => {
     dispatch(saveSignUpField(target));
-  };
+  },[dispatch]);
 
   const loading = status === REQUEST;
 

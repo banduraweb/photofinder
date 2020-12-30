@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { MainPage } from './MainPage';
 import { useHistory, useLocation } from 'react-router-dom';
 import routing from '../../routing/routing';
@@ -15,9 +15,7 @@ import { photoActionsSelectors } from '../../modules/photoActions/photoActionsSe
 
 export const MainPageContainer = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const location = useLocation();
-  const pageNumber = useSelector(photoSelectors.selectPageForFetching);
   const { photoList, status } = useSelector(
     photoSelectors.selectFetchedPhotoFromApi
   );
@@ -47,7 +45,7 @@ export const MainPageContainer = () => {
     setOpenCurrentIMG({ url: '', isOpen: false });
   };
 
-  const downloadImage = (src) => {
+  const downloadImage = useCallback((src) => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.src = src;
@@ -62,13 +60,20 @@ export const MainPageContainer = () => {
       a.href = canvas.toDataURL('image/png');
       a.click();
     };
-  };
+  },[]);
 
-  const toggleLike = (payload) => {
+  const toggleLike = useCallback((payload) => {
     dispatch(pushToggleLikePhoto(payload));
-  };
+  },[dispatch]);
 
-  const renderPhotoList = isMyLikesPage ? photoListLiked : photoList;
+
+  const renderPhotoList = useMemo(()=>{
+    if (isMyLikesPage) {
+      return photoListLiked
+    } else {
+      return photoList
+    }
+  },[isMyLikesPage, photoListLiked, photoList]);
   const loading = status === REQUEST;
   const successLoaded = status === SUCCESS;
 

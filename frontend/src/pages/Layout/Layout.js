@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -12,7 +12,6 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import SendIcon from '@material-ui/icons/Send';
-import JWTDecode from 'jwt-decode';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 import { useDispatch, useSelector } from 'react-redux';
 import { pushLogout } from '../../modules/signIn/signInActions';
@@ -26,6 +25,7 @@ import {
   saveQuerySearch,
 } from '../../modules/photoPixabay/photoActions';
 import { photoSelectors } from '../../modules/photoPixabay/photoSelectors';
+import {queryNormalize} from "../../heplers/stringNormalize";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -107,20 +107,22 @@ export const Layout = ({ children }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const redirectToSearchResults = () => {
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const { query } = useSelector(photoSelectors.selectActiveQuery);
+
+  const redirectToSearchResults = useCallback(() => {
     if (location.pathname !== routing().root) {
       history.push(routing().root);
     }
-  };
+  },[location.pathname]);
 
-  const { query } = useSelector(photoSelectors.selectActiveQuery);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch(pushLogout());
     history.push(routing().login);
-  };
+  },[dispatch, history]);
 
-  const [openDrawer, setOpenDrawer] = React.useState(false);
+
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === 'keydown' &&
@@ -132,14 +134,13 @@ export const Layout = ({ children }) => {
     setOpenDrawer(open);
   };
 
-  const queryNormalize = (inputValue) => {
-    return inputValue.replace(/[0-9]|[!@#$%^&*()_+]/g, '');
-  };
 
-  const handleChange = ({ target }) => {
+  const handleChange = useCallback(({ target }) => {
     const { value, name } = target;
     dispatch(saveQuerySearch({ value: queryNormalize(value), name }));
-  };
+  },[dispatch]);
+
+
   const loadPhotoList = () => {
     if (query !== '') {
       dispatch(resetPhotoList());

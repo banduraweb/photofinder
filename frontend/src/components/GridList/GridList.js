@@ -59,6 +59,7 @@ export const GridListBar = ({
   return (
     <div className={classes.root}>
       <InfiniteScroll
+        style={isMyLikesPage && { overflow: 'hidden' }}
         dataLength={photoList.length}
         next={onScroll}
         hasMore={!isMyLikesPage && !!query}
