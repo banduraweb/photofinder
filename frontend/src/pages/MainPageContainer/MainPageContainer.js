@@ -25,10 +25,14 @@ export const MainPageContainer = () => {
   const { photoListLiked, status: likedFetchStatus } = useSelector(
     photoActionsSelectors.selectLikedPhotos
   );
-  console.log(likedFetchStatus);
+
+  const isMyLikesPage = location.pathname === routing().liked;
+
   useEffect(() => {
-    dispatch(pushListLikedPhotos());
-  }, [location.pathname]);
+    if(isMyLikesPage){
+      dispatch(pushListLikedPhotos());
+    }
+  }, [location]);
 
   const onScroll = () => {
     dispatch(pushPhoto(query));
@@ -61,17 +65,12 @@ export const MainPageContainer = () => {
   };
 
   const toggleLike = (payload) => {
-    console.log(payload);
     dispatch(pushToggleLikePhoto(payload));
   };
 
-  const isMyLikesPage = location.pathname === routing().liked;
+
   const renderPhotoList = isMyLikesPage
-    ? photoListLiked.map((img) => ({
-        ...img,
-        id: img.photoId,
-        largeImageURL: img.url,
-      }))
+    ? photoListLiked
     : photoList;
   const loading = status === REQUEST;
   const successLoaded = status === SUCCESS;

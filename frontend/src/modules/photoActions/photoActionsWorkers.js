@@ -9,12 +9,19 @@ import {
 import { photoSelectors } from '../photoPixabay/photoSelectors';
 import { savePhotos } from '../photoPixabay/photoActions';
 import { photoActionsSelectors } from './photoActionsSelectors';
+import PhotoApi from "../../services/photo.api.service";
 
 function* photoLikedWorker() {
   try {
     yield put(pushListLikedPhotos.request());
     const data = yield call(UserService.getLikedList);
-    yield put(saveLikedPhotosList(data));
+    const chekedUpdatedUrlsPixabay = yield all(data.map((img) => call(PhotoApi.getPhotoById, img.photoId)));
+    const formatedData = chekedUpdatedUrlsPixabay.map(({hits})=>({
+      ...hits[0],
+       photoId: hits[0].id
+    }));
+
+    yield put(saveLikedPhotosList(formatedData));
     yield put(pushListLikedPhotos.success());
   } catch (e) {
     yield put(pushListLikedPhotos.failure());

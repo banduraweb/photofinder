@@ -7,8 +7,14 @@ const get = (payload) =>
     `/api/?key=${pixabayKey}&q=${payload.keyword}&image_type=photo&per_page=12&page=${payload.pageNumber}`
   );
 
+const getPhotoById = (id) =>
+  api.get(
+    `/api/?key=19655068-dbf36f63b12fc795bd3b7002e&id=${id}`
+  );
+
 const PhotoApi = {
   get,
+  getPhotoById
 };
 
 export default PhotoApi;

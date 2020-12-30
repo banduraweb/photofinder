@@ -5,10 +5,15 @@ import Notification from '../../services/notification.service';
 import { photoSelectors } from './photoSelectors';
 import { pushPhoto, setCountPage, savePhotos } from './photoActions';
 import { photoActionsSelectors } from '../photoActions/photoActionsSelectors';
+import {pushListLikedPhotos} from "../photoActions/photoHistoryActions";
 
 function* photoApiWorker({ payload }) {
   try {
     const pageNumber = yield select(photoSelectors.selectPageForFetching);
+    if (pageNumber === 1) {
+      yield put(pushListLikedPhotos());
+    }
+
     const { photoList } = yield select(
       photoSelectors.selectFetchedPhotoFromApi
     );
