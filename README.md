@@ -1,6 +1,6 @@
 # photofinder
 
-[DEMO](https://photofinderrx.netlify.app/) 
+[DEMO](https://photofinder-frontend.vercel.app/) 
 
 
 
