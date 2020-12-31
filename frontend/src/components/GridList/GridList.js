@@ -1,4 +1,5 @@
 import React from 'react';
+import { Img } from 'react-image';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -13,6 +14,7 @@ import csx from 'classnames';
 import { TransitionsModal } from '../Modal/Modal';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -47,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     '& > * + *': {
       marginTop: theme.spacing(2),
+    },
+  },
+  imgWrap: {
+    '& > img': {
+      top: '50%',
+      width: '100%',
+      position: 'relative',
+      transform: 'translateY(-50%)',
     },
   },
 }));
@@ -105,7 +115,12 @@ export const GridListBar = ({
           {!!photoList.length &&
             photoList.map((tile, i) => (
               <GridListTile key={tile.largeImageURL}>
-                <img src={tile.largeImageURL} alt={tile.type} />
+                <span className={classes.imgWrap}>
+                  <Img
+                    src={tile.largeImageURL}
+                    loader={<LinearProgress color="secondary" />}
+                  />
+                </span>
                 <GridListTileBar
                   className={csx(
                     classes.imgInfo,
