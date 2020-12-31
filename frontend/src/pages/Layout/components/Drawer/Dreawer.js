@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles/index';
 import {
   Drawer as DrawerMUI,

@@ -14,7 +14,7 @@ import csx from 'classnames';
 import { TransitionsModal } from '../Modal/Modal';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -40,9 +40,15 @@ const useStyles = makeStyles((theme) => ({
   left: {
     alignItems: 'flex-end',
     paddingRight: '5px',
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'center'
+    },
   },
   right: {
     alignItems: 'baseline',
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'center'
+    },
   },
   progress: {
     width: '100%',
@@ -77,6 +83,10 @@ export const GridListBar = ({
   successLoadedLikes,
 }) => {
   const classes = useStyles();
+  const matches = useMediaQuery('(min-width:600px)');
+
+  const cols = matches ? 2 : 1;
+  const cellHeight = matches ? 280 : 380;
 
   return (
     <div className={classes.root}>
@@ -106,7 +116,7 @@ export const GridListBar = ({
           </div>
         }
       >
-        <GridList cellHeight={280} className={classes.gridList} cols={2}>
+        <GridList cellHeight={cellHeight} className={classes.gridList} cols={cols}>
           <TransitionsModal
             open={open.isOpen}
             handleClose={handleCloseCurrentImg}
