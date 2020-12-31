@@ -29,8 +29,11 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
     overflow: 'auto',
-    position: 'relative',
   },
+  img: {
+    width: '100%',
+    height: '100%',
+  }
 }));
 
 export const TransitionsModal = ({ open, handleClose, url }) => {
