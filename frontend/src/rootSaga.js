@@ -4,6 +4,7 @@ import { signUpWatcher } from './modules/signUp/signUpWorkers';
 import { photoApiWatcher } from './modules/photoPixabay/photoWorkers';
 import { photoLikedWatcher } from './modules/photoActions/photoActionsWorkers';
 import { keywordsWatcher } from './modules/Keywords/KeywordsWorkers';
+import { resetPasswordWatcher } from './modules/resetPassword/resetPasswordWorkers';
 
 export default function* rootSaga() {
   yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     fork(photoApiWatcher),
     fork(photoLikedWatcher),
     fork(keywordsWatcher),
+    fork(resetPasswordWatcher),
   ]);
 }

@@ -1,5 +1,5 @@
 const mode = 'production';
-const prod = mode === 'production';
+const prod = mode === 'dev';
 export const API_USER_DB = prod
   ? ' https://agile-journey-47337.herokuapp.com/'
   : 'http://localhost:3001';

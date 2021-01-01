@@ -41,13 +41,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'flex-end',
     paddingRight: '5px',
     [theme.breakpoints.down('sm')]: {
-      alignItems: 'center'
+      alignItems: 'center',
     },
   },
   right: {
     alignItems: 'baseline',
     [theme.breakpoints.down('sm')]: {
-      alignItems: 'center'
+      alignItems: 'center',
     },
   },
   progress: {
@@ -116,7 +116,11 @@ export const GridListBar = ({
           </div>
         }
       >
-        <GridList cellHeight={cellHeight} className={classes.gridList} cols={cols}>
+        <GridList
+          cellHeight={cellHeight}
+          className={classes.gridList}
+          cols={cols}
+        >
           <TransitionsModal
             open={open.isOpen}
             handleClose={handleCloseCurrentImg}
