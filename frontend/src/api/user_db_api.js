@@ -10,9 +10,10 @@ const user_db_api = axios.create({
 user_db_api.interceptors.request.use(
   async (reqConfig) => {
     const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
     let newToken = null;
 
-    if (token) {
+    if (token && refreshToken) {
       const { exp } = JWTDecode(token);
       const expired = exp < (new Date().getTime() + 1) / 1000;
       if (expired) {

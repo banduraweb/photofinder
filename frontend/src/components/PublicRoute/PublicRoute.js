@@ -5,7 +5,7 @@ import JWTDecode from 'jwt-decode';
 import routing from '../../routing/routing';
 
 const PublicRoute = ({ component: Component, ...rest }) => {
-  if (localStorage.getItem('token')) {
+  if (localStorage.getItem('token') && localStorage.getItem('refreshToken')) {
     const token = localStorage.getItem('token');
     if (token) {
       const { app } = JWTDecode(token);

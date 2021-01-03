@@ -2,7 +2,8 @@ import JWTDecode from 'jwt-decode';
 
 export const loggedIn = () => {
   const token = localStorage.getItem('token');
-  if (token) {
+  const refreshToken = localStorage.getItem('refreshToken');
+  if (token && refreshToken) {
     const { app } = JWTDecode(token);
     return !!app;
   }
