@@ -1,19 +1,8 @@
-import {
-  all,
-  call,
-  put,
-  select,
-  takeLatest,
-  takeEvery,
-} from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import UserService from '../../services/user.services';
 import Notification from '../../services/notification.service';
 import { resetPasswordSelectors } from './resetPasswordSelectors';
-import {
-  pushResetPassword,
-  clearAllErrors,
-  clearAll,
-} from './resetPasswordActions';
+import { pushResetPassword, clearAllErrors } from './resetPasswordActions';
 import Validation from '../../services/validation.service';
 
 function* resetPasswordWorker() {

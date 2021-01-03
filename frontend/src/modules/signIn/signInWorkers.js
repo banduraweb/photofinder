@@ -17,9 +17,19 @@ import {
 } from './signInActions';
 import { saveToken } from '../../heplers/tokenChecker';
 import Validation from '../../services/validation.service';
+import routing from '../../routing/routing';
 
-function* logoutWorker() {
-  yield UserService.logout();
+function* logoutWorker({ payload }) {
+  try {
+    const { message } = yield UserService.logout(payload);
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    window.location.href = routing().root;
+    Notification.success(message);
+  } catch (e) {
+    console.log(e);
+    Notification.error(e?.response?.data?.error || 'Error logout, try again!');
+  }
 }
 
 function* loginWorker() {
@@ -31,9 +41,9 @@ function* loginWorker() {
     const { isValid, errors } = Validation.loginValidation(input);
 
     if (isValid) {
-      const { token } = yield call(UserService.login, input);
-      yield saveToken(token);
-      yield put(pushSignIn.success(token));
+      const { token, refreshToken } = yield call(UserService.login, input);
+      yield saveToken(token, refreshToken);
+      yield put(pushSignIn.success());
       yield put(clearAllErrors());
       yield put(clearAll());
     } else {

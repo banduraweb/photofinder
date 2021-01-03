@@ -12,7 +12,8 @@ const resetPassword = (payload) =>
     oldpassword: payload.oldPassword,
   });
 
-const logout = () => localStorage.removeItem('token');
+const logout = (payload) => api.delete(`/user/logout/${payload}`);
+
 const UserService = {
   login,
   logout,

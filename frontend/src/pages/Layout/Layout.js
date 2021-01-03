@@ -106,7 +106,7 @@ export const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-
+  const refreshToken = localStorage.getItem('refreshToken');
   const [openDrawer, setOpenDrawer] = useState(false);
   const { query } = useSelector(photoSelectors.selectActiveQuery);
 
@@ -117,9 +117,9 @@ export const Layout = ({ children }) => {
   }, [location.pathname]);
 
   const logout = useCallback(() => {
-    dispatch(pushLogout());
+    dispatch(pushLogout(refreshToken));
     history.push(routing().login);
-  }, [dispatch, history]);
+  }, [dispatch, history, refreshToken]);
 
   const toggleDrawer = (open) => (event) => {
     if (

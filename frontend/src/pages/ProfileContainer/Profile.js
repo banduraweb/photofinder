@@ -13,7 +13,7 @@ import { Button } from '../../components/Button/Button';
 import Grid from '@material-ui/core/Grid';
 import { inputErrorsNormalize } from '../../heplers/inputErrorsNormalize';
 import { Loader } from '../../components/Loader/Loader';
-
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
@@ -43,7 +43,10 @@ export const Profile = ({
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Change password</Typography>
+          <Grid container alignItems="center">
+            <AccountCircleIcon />
+            <Typography>Change password</Typography>
+          </Grid>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container>
@@ -76,7 +79,6 @@ export const Profile = ({
                   id="newPassword"
                   label="new password"
                   name="newPassword"
-                  // autoComplete={false}
                   autoFocus
                   onChange={handleChange}
                   helperText={inputErrorsNormalize(errors.newPassword)}
@@ -93,7 +95,6 @@ export const Profile = ({
                   id="confirmedNewPassword"
                   label="confirm new password"
                   name="confirmedNewPassword"
-                  // autoComplete={false}
                   autoFocus
                   onChange={handleChange}
                   helperText={inputErrorsNormalize(errors.confirmedNewPassword)}

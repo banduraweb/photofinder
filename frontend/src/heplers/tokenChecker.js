@@ -9,6 +9,7 @@ export const loggedIn = () => {
   return false;
 };
 
-export const saveToken = (token) => {
+export const saveToken = (token, refreshToken) => {
   localStorage.setItem('token', token);
+  localStorage.setItem('refreshToken', refreshToken);
 };
