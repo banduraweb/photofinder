@@ -27,7 +27,7 @@ user_db_api.interceptors.request.use(
               await localStorage.setItem('token', res.data.token);
               newToken = res.data.token;
             }
-          });
+          }).catch(e=>console.log(e, 'headers'))
       }
       reqConfig.headers.Authorization = `Bearer ${expired ? newToken : token}`;
     }

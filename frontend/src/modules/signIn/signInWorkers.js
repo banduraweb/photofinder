@@ -21,7 +21,7 @@ import routing from '../../routing/routing';
 
 function* logoutWorker({ payload }) {
   try {
-    const { message } = yield UserService.logout(payload);
+    const { message } = yield call(UserService.logout, payload);
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
     window.location.href = routing().root;
