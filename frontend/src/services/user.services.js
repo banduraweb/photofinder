@@ -13,6 +13,9 @@ const resetPassword = (payload) =>
   });
 
 const logout = (payload) => api.delete(`/user/logout/${payload}`);
+const forgotPassword = (payload) => api.post(`/user/forgotpassword`, payload);
+const recoveryPassword = (payload) =>
+  api.post(`/user/recoverpassword`, payload);
 
 const UserService = {
   login,
@@ -23,6 +26,8 @@ const UserService = {
   postKeyword,
   getListKeyword,
   resetPassword,
+  forgotPassword,
+  recoveryPassword,
 };
 
 export default UserService;

@@ -6,6 +6,8 @@ import { photoApi } from './modules/photoPixabay/photoReducer';
 import { photoActions } from './modules/photoActions/photoActionsReducer';
 import { usersKeywords } from './modules/Keywords/KeywordsReducers';
 import { resetPassword } from './modules/resetPassword/resetPasswordReducer';
+import { forgotPassword } from './modules/ForgotPassword/ForgotPasswordReducer';
+import { recoveryPassword } from './modules/RecoveryPassword/RecoveryPasswordReducer';
 
 /* Unite all reducers */
 const rootReducer = combineReducers({
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   photoActions,
   usersKeywords,
   resetPassword,
+  forgotPassword,
+  recoveryPassword,
 });
 
 export default (state, action) => {

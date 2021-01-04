@@ -6,7 +6,8 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import { makeStyles } from '@material-ui/core/styles';
 import { Copyright } from '../../components/Copyright/Copyright';
 import { Loader } from '../../components/Loader/Loader';
-
+import SettingsIcon from '@material-ui/icons/Settings';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -40,14 +41,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SignIn = ({
+export const GetRecoveryLink = ({
   handleSubmit,
   handleChange,
   errors,
   loading,
-  handleLinkRegistration,
   input,
-  handleLinkForgotPassword,
+  goHome,
 }) => {
   const classes = useStyles();
   return (
@@ -56,10 +56,10 @@ export const SignIn = ({
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <PermIdentityIcon />
+            <SettingsIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            FORGOT PASSWORD
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <Input
@@ -78,26 +78,15 @@ export const SignIn = ({
               helperText={errors.email}
               value={input.email}
             />
-            <Input
-              disabled={loading}
-              errors={!!errors.password}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={handleChange}
-              helperText={errors.password}
-              value={input.password}
-            />
             <Grid container>
               <Grid item>
-                <Link onClick={handleLinkForgotPassword} variant="body2">
-                  {'Forgot password?'}
+                <Link onClick={goHome} variant="body2">
+                  <Grid container alignItems="center">
+                    <Grid item>
+                      <ArrowBackIcon />
+                    </Grid>
+                    <Grid item>Back to login page</Grid>
+                  </Grid>
                 </Link>
               </Grid>
             </Grid>
@@ -113,15 +102,8 @@ export const SignIn = ({
               variant="contained"
               color="primary"
               className={classes.submit}
-              content="submit"
+              content="sent recovery link"
             />
-            <Grid container>
-              <Grid item>
-                <Link onClick={handleLinkRegistration} variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
             <Box mt={5}>
               <Copyright />
             </Box>

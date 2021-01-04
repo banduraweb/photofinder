@@ -37,10 +37,37 @@ class Validation {
     };
   }
 
+  static forgotPassword(body) {
+    const { email } = body;
+    const errors = {
+      ...this.isEmail('email', email),
+    };
+    return {
+      errors,
+      isValid: !Object.keys(errors).length,
+    };
+  }
+
   static resetPasswordValidation(body) {
     const { oldPassword, newPassword, confirmedNewPassword } = body;
     const errors = {
       ...this.isLength('oldPassword', oldPassword),
+      ...this.isLength('newPassword', newPassword),
+      ...this.isConfirmed(
+        'confirmedNewPassword',
+        confirmedNewPassword,
+        newPassword
+      ),
+    };
+    return {
+      errors,
+      isValid: !Object.keys(errors).length,
+    };
+  }
+
+  static recoveryPasswordValidation(body) {
+    const { newPassword, confirmedNewPassword } = body;
+    const errors = {
       ...this.isLength('newPassword', newPassword),
       ...this.isConfirmed(
         'confirmedNewPassword',

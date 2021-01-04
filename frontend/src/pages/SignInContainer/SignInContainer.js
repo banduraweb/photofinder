@@ -46,6 +46,10 @@ export const SignInContainer = () => {
     history.push(routing().register);
   }, [history]);
 
+  const handleLinkForgotPassword = useCallback(() => {
+    history.push(routing().forgotpassword);
+  }, [history]);
+
   const loading = status === REQUEST;
 
   return (
@@ -56,6 +60,7 @@ export const SignInContainer = () => {
       errors={errors}
       loading={loading}
       handleLinkRegistration={handleLinkRegistration}
+      handleLinkForgotPassword={handleLinkForgotPassword}
     />
   );
 };

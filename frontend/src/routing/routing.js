@@ -8,5 +8,7 @@ export default function routing() {
     liked: '/mylikes',
     profile: '/profile',
     keywords: '/mykeywords',
+    forgotpassword: '/forgotpassword',
+    recoverpassword: '/recoverpassword/:id',
   };
 }

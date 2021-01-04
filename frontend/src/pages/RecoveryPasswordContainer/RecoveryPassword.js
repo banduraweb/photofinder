@@ -6,7 +6,9 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import { makeStyles } from '@material-ui/core/styles';
 import { Copyright } from '../../components/Copyright/Copyright';
 import { Loader } from '../../components/Loader/Loader';
-
+import SettingsIcon from '@material-ui/icons/Settings';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { inputErrorsNormalize } from '../../heplers/inputErrorsNormalize';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -38,16 +40,19 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  warning: {
+    color: theme.palette.secondary.main,
+  },
 }));
 
-export const SignIn = ({
+export const RecoveryPassword = ({
   handleSubmit,
   handleChange,
   errors,
   loading,
-  handleLinkRegistration,
   input,
-  handleLinkForgotPassword,
+  goHome,
+  errorId,
 }) => {
   const classes = useStyles();
   return (
@@ -56,48 +61,79 @@ export const SignIn = ({
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <PermIdentityIcon />
+            <SettingsIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            FORGOT PASSWORD
           </Typography>
+          {errorId && (
+            <Grid
+              item
+              container
+              justify="center"
+              alignItems="center"
+              className={classes.warning}
+            >
+              <Typography component="h1" variant="h5">
+                Link is not valid
+              </Typography>
+            </Grid>
+          )}
+          {errors.serverError && (
+            <Grid
+              item
+              container
+              justify="center"
+              alignItems="center"
+              className={classes.warning}
+            >
+              <Typography component="h1" variant="h5">
+                {errors.serverError}
+              </Typography>
+            </Grid>
+          )}
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <Input
-              disabled={loading}
-              errors={!!errors.email}
+              disabled={errorId || loading}
+              errors={!!errors.newPassword}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="newPassword"
+              label="new password"
+              name="newPassword"
               autoFocus
               onChange={handleChange}
-              helperText={errors.email}
-              value={input.email}
+              helperText={inputErrorsNormalize(errors.newPassword)}
+              value={input.newPassword}
+              type="password"
             />
             <Input
-              disabled={loading}
-              errors={!!errors.password}
+              disabled={errorId || loading}
+              errors={!!errors.confirmedNewPassword}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              id="confirmedNewPassword"
+              label="confirm new password"
+              name="confirmedNewPassword"
+              autoFocus
               onChange={handleChange}
-              helperText={errors.password}
-              value={input.password}
+              helperText={inputErrorsNormalize(errors.confirmedNewPassword)}
+              value={input.confirmedNewPassword}
+              type="password"
             />
             <Grid container>
               <Grid item>
-                <Link onClick={handleLinkForgotPassword} variant="body2">
-                  {'Forgot password?'}
+                <Link onClick={goHome} variant="body2">
+                  <Grid container alignItems="center">
+                    <Grid item>
+                      <ArrowBackIcon />
+                    </Grid>
+                    <Grid item>Generate new recovery link</Grid>
+                  </Grid>
                 </Link>
               </Grid>
             </Grid>
@@ -107,21 +143,14 @@ export const SignIn = ({
               </Grid>
             )}
             <Button
-              disabled={loading}
+              disabled={errorId || loading}
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              content="submit"
+              content="change password"
             />
-            <Grid container>
-              <Grid item>
-                <Link onClick={handleLinkRegistration} variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
             <Box mt={5}>
               <Copyright />
             </Box>

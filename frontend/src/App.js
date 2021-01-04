@@ -10,6 +10,8 @@ import { MainPageContainer } from './pages/MainPageContainer/MainPageContainer';
 import { SignUpContainer } from './pages/SignUpContainer/SignUpContainer';
 import { ProfileContainer } from './pages/ProfileContainer/ProfileContainer';
 import { KeywordsContainer } from './pages/KeywordsContainer/KeywordsContainer';
+import { GetRecoveryLinkContainer } from './pages/GetRecoveryLinkContainer/GetRecoveryLinkContainer';
+import { RecoveryPasswordContainer } from './pages/RecoveryPasswordContainer/RecoveryPasswordContainer';
 
 function App() {
   return (
@@ -22,6 +24,16 @@ function App() {
           exact
           path={routing().register}
           component={SignUpContainer}
+        />
+        <PublicRoute
+          exact
+          path={routing().forgotpassword}
+          component={GetRecoveryLinkContainer}
+        />
+        <PublicRoute
+          exact
+          path={routing().recoverpassword}
+          component={RecoveryPasswordContainer}
         />
         <Route exact path={routing().notFound} component={NotFoundContainer} />
 
