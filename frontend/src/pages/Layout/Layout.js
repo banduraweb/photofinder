@@ -24,8 +24,10 @@ import {
   resetPhotoList,
   saveQuerySearch,
 } from '../../modules/photoPixabay/photoActions';
+import csx from 'classnames';
 import { photoSelectors } from '../../modules/photoPixabay/photoSelectors';
 import { queryNormalize } from '../../heplers/stringNormalize';
+import { REQUEST } from '../../constants/constants';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -112,6 +114,12 @@ const useStyles = makeStyles((theme) => ({
       backgroundPosition: '50% 50%',
     },
   },
+  searchOnStartPage: {
+    color: '#000',
+    position: 'absolute',
+    top: '40vh',
+    backgroundColor: '#fff',
+  },
 }));
 
 export const Layout = ({ children }) => {
@@ -121,11 +129,14 @@ export const Layout = ({ children }) => {
   const refreshToken = localStorage.getItem('refreshToken');
   const [openDrawer, setOpenDrawer] = useState(false);
   const { query } = useSelector(photoSelectors.selectActiveQuery);
-  const { photoList } = useSelector(photoSelectors.selectFetchedPhotoFromApi);
+  const { photoList, status } = useSelector(
+    photoSelectors.selectFetchedPhotoFromApi
+  );
   const showBgIMG =
     location.pathname === routing().root &&
-    query === '' &&
-    photoList.length === 0;
+    photoList.length === 0 &&
+    status !== REQUEST;
+
   const classes = useStyles({ query: showBgIMG });
 
   const redirectToSearchResults = useCallback(() => {
@@ -198,7 +209,11 @@ export const Layout = ({ children }) => {
             <Typography className={classes.title} variant="h6" noWrap>
               Photo finder
             </Typography>
-            <div className={classes.search}>
+            <div
+              className={csx(
+                showBgIMG ? classes.searchOnStartPage : classes.search
+              )}
+            >
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>

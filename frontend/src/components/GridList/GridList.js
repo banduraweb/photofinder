@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
     height: '100%',
   },
   gridList: {
@@ -109,9 +109,9 @@ export const GridListBar = ({
                 <LinearProgress color="secondary" />
               </div>
             ) : successLoaded && !photoList.length ? (
-              'No photo by query'
+              <span style={{ color: '#F50057' }}>No photo by query</span>
             ) : (
-              'Lets find!'
+              <span style={{ visibility: 'hidden' }}>Lets Find!</span>
             )}
           </div>
         }

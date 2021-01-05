@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
+    minWidth: 'fit-content',
   },
   select: {
     textAlign: 'right',
@@ -79,12 +80,12 @@ export const Keywords = ({
               id="panel1a-header"
             >
               <Grid container>
-                <Grid item xs={3}>
+                <Grid item xs={6} md={3}>
                   <Typography className={classes.heading}>
                     {keyword?.keyword?.toUpperCase()}
                   </Typography>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={6} md={9}>
                   <Typography className={classes.heading}>
                     {format(parseISO(keyword.updatedAt), 'iii MMM do, yyyy')}
                   </Typography>
