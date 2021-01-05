@@ -3,7 +3,7 @@ import { RecoveryPassword } from './RecoveryPassword';
 import { useHistory, useParams } from 'react-router-dom';
 import routing from '../../routing/routing';
 import { useDispatch, useSelector } from 'react-redux';
-import {REQUEST, SUCCESS} from '../../constants/constants';
+import { REQUEST, SUCCESS } from '../../constants/constants';
 import JWTDecode from 'jwt-decode';
 import Notification from '../../services/notification.service';
 import { recoveryPasswordSelectors } from '../../modules/RecoveryPassword/RecoveryPasswordSelectors';
@@ -35,11 +35,11 @@ export const RecoveryPasswordContainer = () => {
     recoveryPasswordSelectors.selectRecoveryState
   );
 
-  useEffect(()=>{
+  useEffect(() => {
     if (status === SUCCESS) {
       history.push(routing().login);
     }
-  },[status]);
+  }, [status]);
 
   const handleSubmit = useCallback(
     (e) => {

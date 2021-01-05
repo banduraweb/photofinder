@@ -99,16 +99,34 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     cursor: 'pointer',
   },
+  toolBar: {
+    width: '100%',
+  },
+  '@global': {
+    body: {
+      backgroundImage: ({ query }) =>
+        query ? 'url(https://source.unsplash.com/random)' : 'none',
+      height: '100vh',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: '50% 50%',
+    },
+  },
 }));
 
 export const Layout = ({ children }) => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const refreshToken = localStorage.getItem('refreshToken');
   const [openDrawer, setOpenDrawer] = useState(false);
   const { query } = useSelector(photoSelectors.selectActiveQuery);
+  const { photoList } = useSelector(photoSelectors.selectFetchedPhotoFromApi);
+  const showBgIMG =
+    location.pathname === routing().root &&
+    query === '' &&
+    photoList.length === 0;
+  const classes = useStyles({ query: showBgIMG });
 
   const redirectToSearchResults = useCallback(() => {
     if (location.pathname !== routing().root) {
@@ -166,8 +184,8 @@ export const Layout = ({ children }) => {
     <div className={classes.grow}>
       <Drawer state={openDrawer} toggleDrawer={toggleDrawer} logout={logout} />
       <AppBar position="sticky">
-        <Grid container justify="center" alignItems="center">
-          <Toolbar>
+        <Grid container justify="space-between" alignItems="center">
+          <Toolbar className={classes.toolBar}>
             <IconButton
               edge="start"
               className={classes.menuButton}
