@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-import { Button as ButtonMUI } from '@material-ui/core';
+import { Button as ButtonMUI, ButtonProps } from '@material-ui/core';
 
-export const Button = ({
+interface IProps extends ButtonProps {
+  content: string;
+}
+export const Button: FC<IProps> = ({
   variant = 'outlined',
   color = 'primary',
   onClick = () => {},
   size = 'medium',
-  type = 'text',
   content = 'Press',
   className = '',
+  type = undefined,
   fullWidth = false,
   disabled = false,
 }) => {
   return (
     <ButtonMUI
+      type={type}
       variant={variant}
       color={color}
       onClick={onClick}
       size={size}
-      type={type}
       className={className}
       fullWidth={fullWidth}
       disabled={disabled}

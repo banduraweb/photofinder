@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -10,8 +10,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-export const Loader = ({ size = 40 }) => {
+type LoaderProps = {
+  size: number;
+};
+export const Loader: FC<LoaderProps> = ({ size = 40 }) => {
   const classes = useStyles();
 
   return (
