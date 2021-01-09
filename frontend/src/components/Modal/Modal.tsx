@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -36,7 +36,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TransitionsModal = ({ open, handleClose, url }) => {
+type TransitionsModalProps = {
+  open: boolean;
+  handleClose: () => void;
+  url: string;
+};
+
+export const TransitionsModal: FC<TransitionsModalProps> = ({
+  open,
+  handleClose,
+  url,
+}) => {
   const classes = useStyles({ url });
   return (
     <div>

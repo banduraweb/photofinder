@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Img } from 'react-image';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    // backgroundColor: theme.palette.background.paper,
     height: '100%',
   },
   gridList: {
@@ -67,7 +66,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const GridListBar = ({
+
+type GridListBarProps = {
+  onScroll: ()=>void,
+  photoList: Array<IimageApi>,
+  loading: boolean,
+  successLoaded: boolean,
+  handleOpenCurrentImg: (url: string)=>void,
+  handleCloseCurrentImg: ()=>void,
+  open: CurrentIMGOpen,
+  downloadImage: (url: string)=>void,
+  toggleLike: (arg: IimageApi)=>void,
+  isMyLikesPage: boolean,
+  query: string,
+  myLikesLoading: boolean,
+  successLoadedLikes: boolean
+}
+
+export const GridListBar:FC<GridListBarProps> = ({
   onScroll,
   photoList,
   loading,
@@ -98,7 +114,7 @@ export const GridListBar = ({
         <Typography variant="h6">You have no liked photos yet</Typography>
       ) : null}
       <InfiniteScroll
-        style={isMyLikesPage && { overflow: 'hidden' }}
+        style={isMyLikesPage ?  { overflow: 'hidden' } :  { overflow: 'auto' }}
         dataLength={photoList.length}
         next={onScroll}
         hasMore={!isMyLikesPage && !!query}
@@ -127,7 +143,7 @@ export const GridListBar = ({
             url={open.url}
           />
           {!!photoList.length &&
-            photoList.map((tile, i) => (
+            photoList.map((tile: IimageApi, i: number) => (
               <GridListTile key={tile.largeImageURL}>
                 <span className={classes.imgWrap}>
                   <Img
@@ -157,7 +173,7 @@ export const GridListBar = ({
                           ...tile,
                           liked: !tile.liked,
                           photoId: tile.id.toString(),
-                          url: tile.largeImageURL,
+                          url: tile.largeImageURL
                         })
                       }
                       key={'fFavoriteIcon'}

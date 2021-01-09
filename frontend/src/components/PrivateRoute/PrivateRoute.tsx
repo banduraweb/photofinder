@@ -1,10 +1,17 @@
-import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import React, { FC } from 'react';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 
 import routing from '../../routing/routing';
 import { loggedIn } from '../../heplers/tokenChecker';
 
-export default ({ component: Component, ...rest }) => (
+interface PrivateRouteProps extends RouteProps {
+  component?: any;
+  children?: any;
+}
+const PrivateRoute: FC<PrivateRouteProps> = ({
+  component: Component,
+  ...rest
+}) => (
   <Route
     {...rest}
     render={(props) =>
@@ -18,3 +25,5 @@ export default ({ component: Component, ...rest }) => (
     }
   />
 );
+
+export default PrivateRoute;

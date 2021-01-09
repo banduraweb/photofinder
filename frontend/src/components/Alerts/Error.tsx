@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Error = ({ message }) => {
+export const Error: FC<AlertProps> = ({ message }) => {
   const classes = useStyles();
   return (
     <div>
